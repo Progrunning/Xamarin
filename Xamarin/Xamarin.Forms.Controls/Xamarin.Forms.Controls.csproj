@@ -6,15 +6,13 @@
 
   <ItemGroup>
     <None Remove="LoadingIndicator.xaml" />
-  </ItemGroup>
+  </ItemGroup>  
 
   <ItemGroup>
-    <EmbeddedResource Include="LoadingIndicator.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="4.1.0.555618" />
   </ItemGroup>
 

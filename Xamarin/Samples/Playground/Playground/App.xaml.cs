@@ -10,7 +10,7 @@ namespace Playground
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new UI.Views.MainPage();
         }
 
         protected override void OnStart()
