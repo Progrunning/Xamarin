@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Forms.Controls", "X
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{519D1F70-F80D-4469-B146-97775C8F8FD1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Playground.UI", "Samples\Playground\Playground\Playground.UI.csproj", "{E126624B-A99B-4DB8-9272-7224ECD858AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Playground.UI", "Samples\Playground\Playground.UI\Playground.UI.csproj", "{E126624B-A99B-4DB8-9272-7224ECD858AB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Playground.Android", "Samples\Playground\Playground.Android\Playground.Android.csproj", "{AC6DEAF6-3C53-475D-8B38-B3BBB345A33F}"
 EndProject
@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Playground.iOS", "Samples\P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Playground.UWP", "Samples\Playground\Playground.UWP\Playground.UWP.csproj", "{772C23E7-9483-4B97-B099-A66D214F22EB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Playground.Core", "Samples\Playground.Core\Playground.Core.csproj", "{805480C0-02B5-49BF-ACD7-9CF86DC1D316}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Playground.Core", "Samples\Playground\Playground.Core\Playground.Core.csproj", "{805480C0-02B5-49BF-ACD7-9CF86DC1D316}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
