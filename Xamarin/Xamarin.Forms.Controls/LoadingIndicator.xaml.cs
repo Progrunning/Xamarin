@@ -7,23 +7,32 @@ namespace Xamarin.Forms.Controls
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoadingIndicator
     {
-        public static readonly BindableProperty IsRunningProperty = BindableProperty.Create(nameof(IsRunning), typeof(bool), typeof(LoadingIndicator), default(bool), propertyChanged: HandleIsRunningPropertyChanged);
+        public static readonly BindableProperty IsLoadingProperty = BindableProperty.Create(nameof(IsLoading), typeof(bool), typeof(LoadingIndicator), default(bool), propertyChanged: HandleIsRunningPropertyChanged);
+        public static readonly BindableProperty LoadingIndicatorColorProperty = BindableProperty.Create(nameof(LoadingIndicatorColor), typeof(Color), typeof(LoadingIndicator), default(Color), propertyChanged: HandleSpinnerColorPropertyChanged);
+        public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(LoadingIndicator), default(Color), propertyChanged: HandleTextFontColorPropertyChanged);
+        public static readonly BindableProperty TextFontSizeProperty = BindableProperty.Create(nameof(TextFontSize), typeof(double), typeof(LoadingIndicator), default(double), propertyChanged: HandleTextFontSizePropertyChanged);
         public static readonly BindableProperty TextProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(LoadingIndicator), default(string), propertyChanged: HandleTextPropertyChanged);
         private const double FullyOpaque = 1;
         private const double FullyTransparent = 0;
         private const uint TogglingVisibilityAnimationDuration = 400;
+
         private static readonly SemaphoreSlim ToggleVisibilityAnimationSemaphoreSlim = new SemaphoreSlim(1);
-        private static bool ToggleVisibilityAnimationRunning;
 
         public LoadingIndicator()
         {
             InitializeComponent();
         }
 
-        public bool IsRunning
+        public bool IsLoading
         {
-            get => (bool)GetValue(IsRunningProperty);
-            set => SetValue(IsRunningProperty, value);
+            get => (bool)GetValue(IsLoadingProperty);
+            set => SetValue(IsLoadingProperty, value);
+        }
+
+        public Color LoadingIndicatorColor
+        {
+            get => (Color)GetValue(LoadingIndicatorColorProperty);
+            set => SetValue(LoadingIndicatorColorProperty, value);
         }
 
         public string Text
@@ -32,14 +41,56 @@ namespace Xamarin.Forms.Controls
             set => SetValue(TextProperty, value);
         }
 
+        public Color TextColor
+        {
+            get => (Color)GetValue(TextColorProperty);
+            set => SetValue(TextColorProperty, value);
+        }
+
+        public double TextFontSize
+        {
+            get => (double)GetValue(TextFontSizeProperty);
+            set => SetValue(TextFontSizeProperty, value);
+        }
+
         private static async void HandleIsRunningPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             if (!(bindable is LoadingIndicator customActivityIndicator) || !(newValue is bool isRunning))
             {
                 return;
             }
-            customActivityIndicator.LoadingIndicatorSpinner.IsRunning = isRunning;
+
             await ToggleVisibility(customActivityIndicator);
+        }
+
+        private static void HandleSpinnerColorPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            if (!(bindable is LoadingIndicator customActivityIndicator) || !(newValue is Color spinnerColor))
+            {
+                return;
+            }
+
+            customActivityIndicator.LoadingIndicatorSpinner.Color = spinnerColor;
+        }
+
+        private static void HandleTextFontColorPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            if (!(bindable is LoadingIndicator customActivityIndicator) || !(newValue is Color textFontColor))
+            {
+                return;
+            }
+
+            customActivityIndicator.LoadingIndicatorText.TextColor = textFontColor;
+        }
+
+        private static void HandleTextFontSizePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            if (!(bindable is LoadingIndicator customActivityIndicator) || !(newValue is double textFontSize))
+            {
+                return;
+            }
+
+            customActivityIndicator.LoadingIndicatorText.FontSize = textFontSize;
         }
 
         private static void HandleTextPropertyChanged(BindableObject bindable, object oldValue, object newValue)
@@ -48,6 +99,7 @@ namespace Xamarin.Forms.Controls
             {
                 return;
             }
+
             customActivityIndicator.LoadingIndicatorText.Text = text;
             customActivityIndicator.LoadingIndicatorText.IsVisible = true;
         }
@@ -56,26 +108,24 @@ namespace Xamarin.Forms.Controls
         {
             try
             {
-                if (ToggleVisibilityAnimationRunning)
-                {
-                    ViewExtensions.CancelAnimations(customActivityIndicator);
-                }
+                ViewExtensions.CancelAnimations(customActivityIndicator);
+
                 await ToggleVisibilityAnimationSemaphoreSlim.WaitAsync();
-                ToggleVisibilityAnimationRunning = true;
-                if (customActivityIndicator.IsRunning)
+                if (customActivityIndicator.IsLoading)
                 {
+                    customActivityIndicator.LoadingIndicatorSpinner.IsRunning = true;
                     customActivityIndicator.IsVisible = true;
                     await customActivityIndicator.FadeTo(FullyOpaque, TogglingVisibilityAnimationDuration);
                 }
                 else
                 {
                     await customActivityIndicator.FadeTo(FullyTransparent, TogglingVisibilityAnimationDuration);
+                    customActivityIndicator.LoadingIndicatorSpinner.IsRunning = false;
                     customActivityIndicator.IsVisible = false;
                 }
             }
             finally
             {
-                ToggleVisibilityAnimationRunning = false;
                 ToggleVisibilityAnimationSemaphoreSlim.Release();
             }
         }
