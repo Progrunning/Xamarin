@@ -8,6 +8,9 @@
              x:Class="Playground.UI.Views.MainPage">
 
     <controls:LoadingIndicator BackgroundColor="#0C000000"
-                               IsRunning="{Binding IsLoadingData, Mode=OneWay}"
-                               Text="Loading..." />
+                               IsLoading="{Binding IsLoadingData, Mode=OneWay}"
+                               LoadingIndicatorColor="Aqua"
+                               Text="Loading..."
+                               TextColor="Red"
+                               TextFontSize="20" />
 </ContentPage>
