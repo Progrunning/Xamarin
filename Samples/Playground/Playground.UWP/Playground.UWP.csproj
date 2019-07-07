@@ -158,11 +158,11 @@
       <Project>{4fa235f1-7895-46f5-ab4c-eb804d2e12f8}</Project>
       <Name>Xamarin.Forms.Controls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Playground.Core\Playground.Core.csproj">
+    <ProjectReference Include="..\..\Playground\Playground.Core\Playground.Core.csproj">
       <Project>{805480c0-02b5-49bf-acd7-9cf86dc1d316}</Project>
       <Name>Playground.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Playground\Playground.UI.csproj">
+    <ProjectReference Include="..\Playground.UI\Playground.UI.csproj">
       <Project>{E126624B-A99B-4DB8-9272-7224ECD858AB}</Project>
       <Name>Playground.UI</Name>
     </ProjectReference>
